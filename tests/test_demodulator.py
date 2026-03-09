@@ -1,12 +1,12 @@
-"""Tests for Warble sample decoding."""
+"""Tests for Baudcast sample decoding."""
 
 from __future__ import annotations
 
 import unittest
 
-from warble.demodulator import detect_bit, recover_payloads_from_samples, samples_to_bits
-from warble.framing import encode_frame, frame_to_bits
-from warble.modulator import bits_to_samples, generate_tone
+from baudcast.demodulator import detect_bit, recover_payloads_from_samples, samples_to_bits
+from baudcast.framing import encode_frame, frame_to_bits
+from baudcast.modulator import bits_to_samples, generate_tone
 
 
 class DemodulatorTests(unittest.TestCase):

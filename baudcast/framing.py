@@ -1,11 +1,11 @@
-"""Frame packing and unpacking for Warble transmissions."""
+"""Frame packing and unpacking for Baudcast transmissions."""
 
 from __future__ import annotations
 
 from collections.abc import Sequence
 
-from warble.config import DEFAULT_CONFIG, WarbleConfig
-from warble.utils import bits_to_bytes, bytes_to_bits, chunk_bytes
+from baudcast.config import BaudcastConfig, DEFAULT_CONFIG
+from baudcast.utils import bits_to_bytes, bytes_to_bits, chunk_bytes
 
 
 class FrameError(ValueError):
@@ -29,7 +29,7 @@ def crc16_ccitt(data: bytes, *, initial: int = 0xFFFF, polynomial: int = 0x1021)
     return crc
 
 
-def encode_frame(payload: bytes, config: WarbleConfig = DEFAULT_CONFIG) -> bytes:
+def encode_frame(payload: bytes, config: BaudcastConfig = DEFAULT_CONFIG) -> bytes:
     """Build a framed payload with preamble, length, and CRC."""
     if len(payload) > config.max_payload_size:
         raise ValueError(f"payload exceeds max frame size of {config.max_payload_size} bytes")
@@ -39,7 +39,7 @@ def encode_frame(payload: bytes, config: WarbleConfig = DEFAULT_CONFIG) -> bytes
     return header + payload + checksum
 
 
-def decode_frame(frame: bytes, config: WarbleConfig = DEFAULT_CONFIG) -> bytes:
+def decode_frame(frame: bytes, config: BaudcastConfig = DEFAULT_CONFIG) -> bytes:
     """Validate and unpack a single frame."""
     min_size = len(config.preamble) + 1 + 2
     if len(frame) < min_size:
@@ -69,7 +69,7 @@ def frame_to_bits(frame: bytes) -> list[int]:
 
 def extract_payloads_from_bits(
     bits: Sequence[int],
-    config: WarbleConfig = DEFAULT_CONFIG,
+    config: BaudcastConfig = DEFAULT_CONFIG,
 ) -> list[bytes]:
     """Recover all valid frame payloads from a bitstream."""
     preamble_bits = bytes_to_bits(config.preamble)
@@ -103,6 +103,6 @@ def extract_payloads_from_bits(
     return recovered
 
 
-def chunk_file_bytes(data: bytes, config: WarbleConfig = DEFAULT_CONFIG) -> list[bytes]:
+def chunk_file_bytes(data: bytes, config: BaudcastConfig = DEFAULT_CONFIG) -> list[bytes]:
     """Split a file into frame-sized payloads."""
     return list(chunk_bytes(data, config.max_payload_size))

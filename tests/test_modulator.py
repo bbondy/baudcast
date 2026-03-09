@@ -4,9 +4,9 @@ from __future__ import annotations
 
 import unittest
 
-from warble.config import DEFAULT_CONFIG
-from warble.demodulator import goertzel_magnitude
-from warble.modulator import bits_to_samples, generate_tone
+from baudcast.config import DEFAULT_CONFIG
+from baudcast.demodulator import goertzel_magnitude
+from baudcast.modulator import bits_to_samples, generate_tone
 
 
 class ModulatorTests(unittest.TestCase):

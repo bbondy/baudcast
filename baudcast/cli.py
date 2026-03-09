@@ -1,7 +1,7 @@
-"""Command-line interface for Warble."""
+"""Command-line interface for Baudcast."""
 
 
 def main() -> int:
     """Placeholder CLI until the protocol implementation is added."""
-    print("Warble is not implemented yet.")
+    print("Baudcast is not implemented yet.")
     return 0

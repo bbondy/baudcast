@@ -1,16 +1,16 @@
-"""Audio waveform generation for Warble transmissions."""
+"""Audio waveform generation for Baudcast transmissions."""
 
 from __future__ import annotations
 
 import math
 from collections.abc import Sequence
 
-from warble.config import DEFAULT_CONFIG, WarbleConfig
+from baudcast.config import BaudcastConfig, DEFAULT_CONFIG
 
 
 def generate_tone(
     frequency: float,
-    config: WarbleConfig = DEFAULT_CONFIG,
+    config: BaudcastConfig = DEFAULT_CONFIG,
     *,
     amplitude: float | None = None,
 ) -> list[float]:
@@ -25,7 +25,7 @@ def generate_tone(
 
 def bits_to_samples(
     bits: Sequence[int],
-    config: WarbleConfig = DEFAULT_CONFIG,
+    config: BaudcastConfig = DEFAULT_CONFIG,
     *,
     amplitude: float | None = None,
 ) -> list[float]:

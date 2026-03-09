@@ -1,12 +1,12 @@
-"""Tone detection and bit recovery for Warble."""
+"""Tone detection and bit recovery for Baudcast."""
 
 from __future__ import annotations
 
 import math
 from collections.abc import Sequence
 
-from warble.config import DEFAULT_CONFIG, WarbleConfig
-from warble.framing import extract_payloads_from_bits
+from baudcast.config import BaudcastConfig, DEFAULT_CONFIG
+from baudcast.framing import extract_payloads_from_bits
 
 
 def goertzel_magnitude(samples: Sequence[float], frequency: float, sample_rate: int) -> float:
@@ -31,7 +31,7 @@ def goertzel_magnitude(samples: Sequence[float], frequency: float, sample_rate: 
     return math.sqrt((real * real) + (imag * imag))
 
 
-def detect_bit(symbol_samples: Sequence[float], config: WarbleConfig = DEFAULT_CONFIG) -> int:
+def detect_bit(symbol_samples: Sequence[float], config: BaudcastConfig = DEFAULT_CONFIG) -> int:
     """Detect whether one symbol carries a 0 or a 1."""
     zero_power = goertzel_magnitude(symbol_samples, config.freq0, config.sample_rate)
     one_power = goertzel_magnitude(symbol_samples, config.freq1, config.sample_rate)
@@ -40,7 +40,7 @@ def detect_bit(symbol_samples: Sequence[float], config: WarbleConfig = DEFAULT_C
 
 def samples_to_bits(
     samples: Sequence[float],
-    config: WarbleConfig = DEFAULT_CONFIG,
+    config: BaudcastConfig = DEFAULT_CONFIG,
     *,
     offset: int = 0,
 ) -> list[int]:
@@ -54,7 +54,7 @@ def samples_to_bits(
 
 def recover_payloads_from_samples(
     samples: Sequence[float],
-    config: WarbleConfig = DEFAULT_CONFIG,
+    config: BaudcastConfig = DEFAULT_CONFIG,
 ) -> list[bytes]:
     """Search across possible symbol alignments and recover the most valid frames."""
     best_payloads: list[bytes] = []

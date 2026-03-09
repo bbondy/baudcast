@@ -1,4 +1,4 @@
-"""Configuration values for the Warble protocol."""
+"""Configuration values for the Baudcast protocol."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from dataclasses import dataclass
 
 
 @dataclass(frozen=True, slots=True)
-class WarbleConfig:
+class BaudcastConfig:
     """Static protocol and signal parameters."""
 
     sample_rate: int = 44_100
@@ -26,4 +26,4 @@ class WarbleConfig:
         return max(1, round(self.sample_rate / self.baud))
 
 
-DEFAULT_CONFIG = WarbleConfig()
+DEFAULT_CONFIG = BaudcastConfig()

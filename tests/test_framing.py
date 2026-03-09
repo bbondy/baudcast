@@ -1,10 +1,10 @@
-"""Tests for Warble framing primitives."""
+"""Tests for Baudcast framing primitives."""
 
 from __future__ import annotations
 
 import unittest
 
-from warble.framing import CRCMismatchError, chunk_file_bytes, crc16_ccitt, decode_frame, encode_frame, extract_payloads_from_bits, frame_to_bits
+from baudcast.framing import CRCMismatchError, chunk_file_bytes, crc16_ccitt, decode_frame, encode_frame, extract_payloads_from_bits, frame_to_bits
 
 
 class FramingTests(unittest.TestCase):

@@ -3,7 +3,7 @@ requires = ["setuptools>=69", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "warble"
+name = "baudcast"
 version = "0.1.0"
 description = "Transfer files between computers using sound waves."
 readme = "README.md"
@@ -30,10 +30,10 @@ audio = ["sounddevice>=0.4.6"]
 dev = ["pytest>=8.0"]
 
 [project.scripts]
-warble = "warble.cli:main"
+baudcast = "baudcast.cli:main"
 
 [tool.setuptools]
 include-package-data = false
 
 [tool.setuptools.packages.find]
-include = ["warble", "warble.*"]
+include = ["baudcast", "baudcast.*"]
