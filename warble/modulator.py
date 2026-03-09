@@ -1,0 +1,38 @@
+"""Audio waveform generation for Warble transmissions."""
+
+from __future__ import annotations
+
+import math
+from collections.abc import Sequence
+
+from warble.config import DEFAULT_CONFIG, WarbleConfig
+
+
+def generate_tone(
+    frequency: float,
+    config: WarbleConfig = DEFAULT_CONFIG,
+    *,
+    amplitude: float | None = None,
+) -> list[float]:
+    """Generate one symbol of a sine wave for the requested frequency."""
+    level = config.amplitude if amplitude is None else amplitude
+    samples: list[float] = []
+    for index in range(config.samples_per_symbol):
+        angle = 2.0 * math.pi * frequency * (index / config.sample_rate)
+        samples.append(level * math.sin(angle))
+    return samples
+
+
+def bits_to_samples(
+    bits: Sequence[int],
+    config: WarbleConfig = DEFAULT_CONFIG,
+    *,
+    amplitude: float | None = None,
+) -> list[float]:
+    """Convert a bit sequence into concatenated audio samples."""
+    output: list[float] = []
+    zero_symbol = generate_tone(config.freq0, config, amplitude=amplitude)
+    one_symbol = generate_tone(config.freq1, config, amplitude=amplitude)
+    for bit in bits:
+        output.extend(one_symbol if int(bit) else zero_symbol)
+    return output
