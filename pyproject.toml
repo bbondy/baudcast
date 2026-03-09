@@ -9,6 +9,10 @@ description = "Transfer files between computers using sound waves."
 readme = "README.md"
 requires-python = ">=3.11"
 license = { file = "LICENSE" }
+dependencies = [
+  "numpy>=1.26",
+  "sounddevice>=0.4.6",
+]
 authors = [
   { name = "Brian R. Bondy" }
 ]
@@ -26,7 +30,6 @@ classifiers = [
 ]
 
 [project.optional-dependencies]
-audio = ["sounddevice>=0.4.6"]
 dev = ["pytest>=8.0"]
 
 [project.scripts]

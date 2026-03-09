@@ -11,7 +11,14 @@ def _require_sounddevice() -> Any:
     except ImportError as exc:  # pragma: no cover - depends on local environment
         raise RuntimeError(
             "sounddevice is required for live audio I/O. Install it with "
-            "`pip install 'baudcast[audio]'`."
+            "`python -m pip install -e .`."
+        ) from exc
+    try:
+        import numpy  # noqa: F401
+    except ImportError as exc:  # pragma: no cover - depends on local environment
+        raise RuntimeError(
+            "numpy is required for live audio I/O. Install it with "
+            "`python -m pip install -e .`."
         ) from exc
     return sounddevice
 

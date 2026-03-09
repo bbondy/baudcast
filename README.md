@@ -40,10 +40,16 @@ On receive, Baudcast records audio from a microphone, slices it into symbol wind
 python3 demo.py
 ```
 
-For live audio I/O, install the optional audio dependency:
+Install the project into your virtualenv:
 
 ```bash
-pip install ".[audio]"
+python -m pip install -e .
+```
+
+For local development with tests:
+
+```bash
+python -m pip install -e '.[dev]'
 ```
 
 Then run either side of the transfer:
